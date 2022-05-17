@@ -1,0 +1,17 @@
+import requests
+from bs4 import BeautifulSoup
+
+with open(r"YOUR FILE DIRECTORY\file.txt") as file:
+    data = file.read()
+    my_list = data.splitlines()
+for line in my_list:
+    url = line
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, 'lxml')
+    quotes = soup.find_all('title')
+
+    for quote in quotes:
+        f = open(r"YOUR FILE DIRECTORY\output.txt", 'a')
+        f.write(str(quote.text))
+        f.write("\n")
+        f.close()
